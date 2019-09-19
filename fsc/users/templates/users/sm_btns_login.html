@@ -1,0 +1,11 @@
+{% load static %}
+{% load socialaccount %}
+{% providers_media_js %}
+
+<div class="dropdown-item text-center social-btn">
+    <div class="in-dropdown-div">Login with</div>
+        <a class="btn" href="{% provider_login_url 'facebook' method='oauth2' %}"><img class="sm-btn" src="{% static 'img/sm-icons/fb_icon.png' %}"><img></a>
+        <a class="btn" href="{% provider_login_url 'google' %}"><img class="sm-btn"src="{% static 'img/sm-icons/gl_icon.png' %}"><img></a>
+        <a class="btn" href="#"><img class="sm-btn"src="{% static 'img/sm-icons/in_icon.png' %}"><img></a>
+        <a class="btn" href="#"><img class="sm-btn" src="{% static 'img/sm-icons/gh_icon.png' %}"><img></a>
+</div>

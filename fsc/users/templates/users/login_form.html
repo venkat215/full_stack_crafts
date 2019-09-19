@@ -1,0 +1,35 @@
+{% load static %}
+
+<div class="dropdown-form mb-2 mr-sm-2">
+        <form class="form" action="{% url 'fsc-users-login' %}{% if request.GET %}?{{ request.GET.urlencode }}{% endif %}" method="post">
+            {% csrf_token %}
+            <label class="sr-only" for="inlineFormInputName2">Username / Email</label>
+            <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Username / Email" name="username">
+            <label class="sr-only" for="inlineFormInputName2">Password</label>
+            <input type="password" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Password" name="password">
+        
+            <div class="form-check mb-2 mr-sm-2 form-center-elem">
+                <input class="form-check-input" type="checkbox" id="inlineFormCheck" name="rem_me">
+                <label class="form-check-label" for="inlineFormCheck">
+                Remember me
+                </label>
+            </div>
+            <input type="hidden" id="req_path" name="req_path" value="{{ request.path }}">
+            <div class="form-center-elem">
+                <button type="submit" class="btn btn-dark mb-2 user-form" name ="login_form">Log In</button>
+            </div>
+            <div class="form-center-elem">
+                <span>
+                <a class="fg-password" href="#" class="">Forgot password?</a>
+                  |  
+                <a class="create-acc" href="{% url 'fsc-users-register' %}" class="">Create Account</a>
+                </span>
+            </div>
+        </form>
+        <div class="dropdown-divider"></div>
+        {% block sm_btns %}
+            {% include "users/sm_btns_login.html" %}
+        {% endblock %}
+    </div>
+
+</div>

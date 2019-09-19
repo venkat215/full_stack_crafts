@@ -1,0 +1,12 @@
+{% extends "main_webapp/base.html" %}
+{% block content %}
+
+    <div class="welcome_msg">
+            <h1 class="welcome_msg">WELCOME {% if user.is_authenticated %}{{ user.first_name }}{% endif %}</h1>
+    </div>
+    
+    <div id="content-block">
+        <p class="logged_in">You are already logged in.<br><a href="{% url 'fsc-users-logout' %}">Sign in as different user</a></p>
+    </div>
+    
+{% endblock content %}

@@ -1,0 +1,8 @@
+{% extends "main_webapp/base.html" %}
+{% block content %}
+
+<div id="content-block">
+        <p class="logged_in">You are already logged in.<br><a href="{% url 'fsc-users-logout' %}">Sign in as different user</a></p>
+    </div>
+    
+{% endblock content %}

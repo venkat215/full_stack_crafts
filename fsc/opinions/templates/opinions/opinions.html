@@ -1,0 +1,15 @@
+{% extends "main_webapp/base.html" %}
+{% block content %}
+
+            {% for thread in threads %}
+                <div class="opinion_post">
+
+                    <img class="developer_img" src="{{ thread.image }}"></img>
+                    <p class="opinion_title">{{ thread.topic }}</p>
+                    <p class="author_ts">By <span class="ts_user_link"><a class="ts_user_link" href="#">{{ thread.author }}</a></span> on {{ thread.date_posted }}</p>
+                    <p class="opinion_desc">{{ thread.description }}</p>
+                    <!-- <p class="comment_box"><textarea placeholder="Post your opinion on this topic..." ></textarea></p> -->
+                </div>
+            {% endfor %}
+            
+{% endblock content %}

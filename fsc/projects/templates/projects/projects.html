@@ -1,0 +1,38 @@
+{% extends "main_webapp/base.html" %}
+{% block content %}
+
+            <div class="empty_div"></div>
+            <div class="empty_div"></div>
+
+            <div class="projects_info">
+
+                <h3 clas>LIST OF PROJECTS</h3>
+
+                <ol>
+                    <li>
+                        Document Diff
+                    </li>
+                    <li>
+                        Sentiment Analysis
+                    </li>
+                </ol>
+    
+            </div>
+
+            <canvas id="test_canvas" width="200px" height="133px"  style="border:1px solid #000000;" ></canvas>
+
+            <div class="empty_div"></div>
+            <div class="empty_div"></div>
+
+            <button onclick="changeStyle()">Change Color with ID</button>
+            <script>
+                const canvas = document.getElementById("test_canvas");
+                blob_block(canvas);
+            </script>
+
+            <div class="empty_div"></div>
+            <div class="empty_div"></div>
+
+            <button onclick="grab_tags()">Change BG with Tag</button>
+
+{% endblock content %}
