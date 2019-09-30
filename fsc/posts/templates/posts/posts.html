@@ -1,0 +1,15 @@
+{% extends "main_webapp/base.html" %}
+{% block content %}
+
+            {% for thread in threads %}
+                <div class="post-snippet">
+
+                    <img class="post-developer-img" src="{{ thread.image }}"></img>
+                    <p class="post-title">{{ thread.topic }}</p>
+                    <p class="author-ts">By <span class="ts_user_link"><a class="ts_user_link" href="#">{{ thread.author }}</a></span> on {{ thread.date_posted }}</p>
+                    <p class="post-desc">{{ thread.description }}</p>
+                    <!-- <p class="comment_box"><textarea placeholder="Post your post on this topic..." ></textarea></p> -->
+                </div>
+            {% endfor %}
+            
+{% endblock content %}

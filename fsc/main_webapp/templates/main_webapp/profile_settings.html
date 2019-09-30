@@ -1,0 +1,30 @@
+
+{% load static %}
+
+  
+  <h4>Profile Settings</h4>
+  <div class="empty-div"></div>
+  
+  <form class="form" action="{% url 'fsc-settings' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group form-inline">
+            <label for="dp">Profile Picture</label>
+            <img class="user-dp-preview" src="{{ user.profile.dp.url }}"></img>
+            <input type="file" class="form-control dp-input" id="dp" name="dp">
+        </div>
+        <div class="form-group form-inline">
+          <label for="dob">Birthday</label>
+          <input type="date" class="form-control" id="dob" name="dob" value="{% if user.profile.dob %}{{ user.profile.dob|date:'Y-m-d' }}{% else %}{% endif %}">
+        </div>
+        <div class="form-group form-inline">
+          <label for="bio">Bio</label>
+          <textarea type="text" class="form-control text-area" id="bio" name="bio" placeholder="Enter bio" >{% if user.profile.bio %}{{ user.profile.bio }}{% else %}{% endif %}</textarea>
+        </div>
+        <div class="form-group form-half">
+          <button type="submit" class="btn btn-dark mb-2 user-form" name="profile_settings">Submit</button>
+        </div>
+
+  </form>
+
+
+

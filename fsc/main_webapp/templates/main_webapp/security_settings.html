@@ -1,0 +1,31 @@
+
+{% load static %}
+
+
+  <h4>Security Settings</h4>
+  <div class="empty-div"></div>
+  <form>
+      <strong class="form-title">Change Password</strong>
+      <div class="empty-div"></div>
+      {% csrf_token %}
+          <div class="form-group form-inline">
+          <label for="password">Old Password</label>
+          <input type="password" class="form-control" id="password" name="password" placeholder="Enter Old Password">
+          </div>
+          <div class="form-group form-inline">
+            <label for="password1">New Password</label>
+            <input type="password" class="form-control" id="password1" name="password1" placeholder="Enter New Password">
+          </div>
+          <div class="form-group form-inline">
+            <label for="password2">Confirm New Password</label>
+            <input type="password" class="form-control" id="password2" name="password2" placeholder="Confirm New Password">
+          </div>
+          <div class="form-group form-half">
+            <button type="submit" class="btn btn-dark mb-2 user-form" name="ch_pass">Change</button>
+          </div>
+
+
+  </form>
+
+
+

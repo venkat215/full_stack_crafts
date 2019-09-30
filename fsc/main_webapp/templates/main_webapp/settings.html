@@ -1,0 +1,32 @@
+{% extends "main_webapp/base.html" %}
+{% load static %}
+{% block content %}
+
+<!-- <div class="settings"> -->
+
+        <div class="row settings">
+                <div class="col-3 left-pane settings-child">
+                  <div class="nav flex-column nav-pills nav-side-tabs" id="v--tab" role="tablist" aria-orientation="vertical">
+                    <a class="nav-link tab-text active" id="v--account-tab" data-toggle="tab" href="#v--account" role="tab" aria-controls="v--account" aria-selected="true">Account</a>
+                    <a class="nav-link tab-text" id="v--profile-tab" data-toggle="tab" href="#v--profile" role="tab" aria-controls="v--profile" aria-selected="false">Profile</a>
+                    <a class="nav-link tab-text" id="v--security-tab" data-toggle="tab" href="#v--security" role="tab" aria-controls="v--security" aria-selected="false">Security</a>
+                  </div>
+                </div>
+                <div class="col-9 settings-child">
+                  <div class="tab-content" id="v--tabContent">
+                    <div class="tab-pane fade show active" id="v--account" role="tabpanel" aria-labelledby="v--account-tab">
+                        {% include "main_webapp/account_settings.html" %}
+                    </div>
+                    <div class="tab-pane fade" id="v--profile" role="tabpanel" aria-labelledby="v--profile-tab">
+                        {% include "main_webapp/profile_settings.html" %}
+                    </div>
+                    <div class="tab-pane fade" id="v--security" role="tabpanel" aria-labelledby="v--security-tab">
+                        {% include "main_webapp/security_settings.html" %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+<!-- </div> -->
+
+{% endblock content %}

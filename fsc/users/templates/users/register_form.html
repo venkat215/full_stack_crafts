@@ -4,32 +4,58 @@
 
 <div id=Registerform >
     <div class="dropdown-form mb-2 mr-sm-2">
-            <form class="form" action="{% url 'fsc-users-register' %}{% if request.GET %}?{{ request.GET.urlencode }}{% endif %}" method="post">
+            <div class="login-error-msg">
+                {% if messages %}
+                    {% for message in messages %}
+                        {% if message.extra_tags == "email_error" %}
+                            Account already exists
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <form class="form" action="{% url 'fsc-users-register' %}{% if request.GET %}?{{ request.GET.urlencode }}{% endif %}" method="post" onsubmit="return validate_reg_fields()">
                 {% csrf_token %}
                 <!-- <label class="sr-only" for="inlineFormInputName2">Username</label>
                 <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Username" name="username"> -->
-                <label class="sr-only" for="inlineFormInputName2">Email</label>
-                <input type="email" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Email" name="email">
-                <label class="sr-only" for="inlineFormInputName2">Password</label>
-                <input type="password" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Password" name="password1">
-                <label class="sr-only" for="inlineFormInputName2">Confirm Password</label>
-                <input type="password" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Confirm Password" name="password2">
-                <label class="sr-only" for="inlineFormInputName2">First Name</label>
-                <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="First Name" name="first_name">
-                <label class="sr-only" for="inlineFormInputName2">Last Name</label>
-                <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Last Name" name="last_name">
+                <div>
+                    <label class="sr-only" for="email">Email</label>
+                    <input type="text" class="form-control mb-2 mr-sm-2" id="email" placeholder="Email" name="email" data-invalid-message="Invalid Email" oninput="fv().remove_invalid(this);">
+                </div>
 
-            
+                <div>
+                    <label class="sr-only" for="password1">Password</label>
+                    <input type="password" class="form-control mb-2 mr-sm-2" id="password1" placeholder="Password" name="password1" oninput="fv().remove_invalid(this);">
+                </div>
+                <p class="miniature-msg">Minimmum 8 characters<br>Atleast one A-Z, one a-z and one 0-9</p>
+
+                <div>
+                    <label class="sr-only" for="password2">Confirm Password</label>
+                    <input type="password" class="form-control mb-2 mr-sm-2" id="password2" placeholder="Confirm Password" name="password2" oninput="fv().remove_invalid(this);">
+                </div>
+
+                <div>
+                    <label class="sr-only" for="fname">First Name</label>
+                    <input type="text" class="form-control mb-2 mr-sm-2" id="fname" placeholder="First Name" name="first_name" oninput="fv().remove_invalid(this);">
+                </div>
+
+                <div>
+                    <label class="sr-only" for="lname">Last Name</label>
+                    <input type="text" class="form-control mb-2 mr-sm-2" id="lname" placeholder="Last Name" name="last_name" oninput="fv().remove_invalid(this);">
+                </div>
+
+
                 <div class="form-check mb-2 mr-sm-2 form-center-elem">
-                    <input class="form-check-input" type="checkbox" id="inlineFormCheck" name="send_updates">
-                    <label class="form-check-label" for="inlineFormCheck">
+                    <input class="form-check-input" type="checkbox" id="send_updates" name="send_updates">
+                    <label class="form-check-label" for="send_updates">
                     Receive Updates
                     </label>
                 </div>
-                <input type="hidden" id="req_path" name="req_path" value="{{ request.path }}">
+
                 <div class="form-center-elem">
-                    <button type="submit" class="btn btn-dark mb-2 user-form" name ="login_form">Sign Up</button>
+                    <input type="hidden" id="req_path" name="req_path" value="{{ request.path }}">
+                    <button type="submit" class="btn btn-dark mb-2 user-form" name ="register_form">Sign Up</button>
                 </div>
+
                 <div class="form-center-elem">
                     <span>
                     <a class="create-acc" href="{% url 'fsc-users-login' %}" class="">Already have an account?</a>

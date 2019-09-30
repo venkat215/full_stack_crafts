@@ -1,0 +1,56 @@
+{% extends "main_webapp/base.html" %}
+{% block content %}
+
+            <div class="website-info">
+
+                <h3>Website info</h3>
+
+                <p>
+                    This website intends to showcase my skillset in terms of web development and machine learning and general purpose programming. The development mainly uses HTML, CSS, Bootstrap and Python.
+                    The framework the website runs on is Django. Major Python packages used for backend logic includes but not limited to scikit-learn, nltk, opencv, pandas, numpy, matplotlib.
+                    The webiste data is held in a PostgresSQL database.
+                </p>
+
+            </div>
+
+            <div class="developer-info">
+
+                <h3>About me</h3>
+                
+                <div class="developer-info">
+                    
+                    <em><div class="developer-img-wrap"><img id="developer-img" src="{{ dev_img_src }}" alt="Picture of the website owner displays here. Image currently not available."></div>
+                    <!-- onmouseover="ktop_img('{{ ktop_img_src }}')" onmouseout="developer_img('{{ dev_img_src }}')"   -->
+                    
+                    <div class="developer-info-text">
+
+                            From Automobile Engineering in Chennai, IN to Project / Operations and Production Management in Christchurch, NZ to Advisory Support Associate in Ernst
+                            & Young, Bangalore, IN to German Catalog Associate in Amazon....... hang on I was 23 already with no exposure to programming :(<br><br>
+                    
+                            Okay, before I narrate any further, my name is Venaktesh and I am from Chennai, India. And now my story...<br><br>
+                            It all started when I was in Amazon. The work atmosphere made me understand the importance of automation and there I was taking my baby steps with programming.
+                            The first computer language that I learnt was VBA which I used for MS Excel automations. Post getting bored of it, I was looking to learn something new and fell
+                            in love at first sight with Python. The syntax looked so simple. Well when I began, I didn't know that I'll be able to do so much with Python more than general
+                            purpose programming. Data Analysis, Visualization, Machine Learning, Deep Learning, Image processing, OCR what not. As I was progessing, I found another affair 
+                            with SQL. Currently I work in Standard Chartered GBS as a full time Python developer. So why this website? I thought I wanted to showcase my knowledge to others through 
+                            which I'll also be able to learn new skills. During the process of creating this website, I explored into front end development. I've built this website only with HTML 
+                            and CSS. My next is javascript after which I assure you this website will start to feel more fluid. Well that's enough of myself I guess and feel free to contact me for 
+                            anything related to VBA, Python, SQL, HTML or CSS. I'll learn from you, and I hope it will be vice-versa too.<br><br>
+                            
+                            Thanks to all those Youtube tutors, people who share their solutions on Stack overflow and other Internet forums. My knowledge is purely from these sources and without 
+                            them, I won't be having a career in this field.  
+                    
+                    
+                    </div>
+                
+                </div>
+
+            </div>
+
+        <div class="kural-quote">
+
+                <em><br><br>தொட்டனைத் தூறும் மணற்கேணி மாந்தர்க்குக், கற்றனைத் தூறும் அறிவு. -- திருக்குறள் 396
+                <br><br>The deeper a well is dug, the more the water that springs; the more one learns, the more the wisdom it brings.. -- Thirukkural 396</em>
+
+        </div>
+{% endblock content %}

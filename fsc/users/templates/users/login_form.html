@@ -1,16 +1,26 @@
 {% load static %}
 
 <div class="dropdown-form mb-2 mr-sm-2">
+
+        <div class="login-error-msg">
+            {% if messages %}
+                {% for message in messages %}
+                    {% if message.extra_tags == "login_error" %}
+                        Invalid Credentials
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
         <form class="form" action="{% url 'fsc-users-login' %}{% if request.GET %}?{{ request.GET.urlencode }}{% endif %}" method="post">
             {% csrf_token %}
-            <label class="sr-only" for="inlineFormInputName2">Username / Email</label>
-            <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Username / Email" name="username">
-            <label class="sr-only" for="inlineFormInputName2">Password</label>
-            <input type="password" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Password" name="password">
+            <label class="sr-only" for="l_uname">Username / Email</label>
+            <input type="text" class="form-control mb-2 mr-sm-2" id="l_uname" placeholder="Username / Email" name="email">
+            <label class="sr-only" for="l_pword">Password</label>
+            <input type="password" class="form-control mb-2 mr-sm-2" id="l_pword" placeholder="Password" name="password">
         
             <div class="form-check mb-2 mr-sm-2 form-center-elem">
-                <input class="form-check-input" type="checkbox" id="inlineFormCheck" name="rem_me">
-                <label class="form-check-label" for="inlineFormCheck">
+                <input class="form-check-input" type="checkbox" id="l_submit" name="rem_me">
+                <label class="form-check-label" for="l_submit">
                 Remember me
                 </label>
             </div>

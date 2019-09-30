@@ -8,8 +8,12 @@ from django.contrib import messages
 import json
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+import requests
+import random, string
+import json
+from django.contrib.staticfiles.templatetags.staticfiles import static
 
-HOST = "http://127.0.0.1:8000"
+# HOST = "http://127.0.0.1:8000"
 
 def register(request):
 
@@ -24,12 +28,11 @@ def register(request):
         req_path = form.data.get('req_path')
         
         if json.loads(form.errors.as_json()):
-            try:
-                json.loads(form.errors.as_json())['username']
-                messages.error(request, {"user_error" : "That username is taken!"}, extra_tags='user_error')
-            except KeyError:
-                pass
-
+            # try:
+            #     json.loads(form.errors.as_json())['username']
+            #     messages.error(request, {"user_error" : "That username is taken!"}, extra_tags='user_error')
+            # except KeyError:
+            #     pass  
             try:
                 json.loads(form.errors.as_json())['email']
                 messages.error(request, {"email_error" : "Existing Email"}, extra_tags='email_error')
@@ -48,10 +51,11 @@ def register(request):
             #     return redirect(f'{HOST}{req_path}')
             # return redirect('fsc-home')
         else:
+            print('Invalid Form')
             logging.error('Invalid Form')
 
         if req_path != '/users/register/':
-            return redirect(f'{HOST}{req_path}')
+            return redirect(f'{req_path}')
 
     context = {"page_name" : "register"}
     return render(request, 'users/register_form.html', context = context)
@@ -70,7 +74,10 @@ def login_user(request, on_register = False):
         next_url = None
 
     if request.POST:
-        username = request.POST['username']
+
+        print(request.POST)
+
+        username = request.POST['email']
         if not on_register:
             password = request.POST['password']
         else:
@@ -86,12 +93,18 @@ def login_user(request, on_register = False):
                 #     messages.success(request, f'Successfully signed in as  {user.username}!', extra_tags="display")
                 # else:
                 #     messages.success(request, f'You are now logged in as {user.email}!', extra_tags="display")
-                    
+                
+                try:
+                    request.POST['rem_me']
+                except:
+                    request.session.set_expiry(0)
+                    print(request.session)
+
                 if next_url:
-                    return redirect(f'{HOST}{next_url}')
+                    return redirect(f'{next_url}')
 
                 if req_path != '/users/login/' and req_path != '/users/register/':
-                    return redirect(f'{HOST}{req_path}')
+                    return redirect(f'{req_path}')
                 return redirect('fsc-home')
 
         else:
@@ -118,4 +131,40 @@ def current_user(request):
 
     if request.user.is_authenticated:
         context = {"page_name" : request.user.first_name}
-        return render(request, 'users/logged_in.html', context=context)
+        return render(request, 'users/user_profile.html', context=context)
+
+def linkedin_login(request):
+
+    pass
+    # client_id = '81oahhoeuge54t'
+    # client_secret = '60JfRvh7JjGRJCT0'
+    # redirect_url = 'https://127.0.0.1:8000/users/accounts/linkedin_login/login/callback/'
+    # state = ''.join(random.choices(string.ascii_letters + string.digits, k=16))
+    # scope = "r_basicprofile%20r_emailaddress"
+
+    # return redirect(f'https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id={client_id}&redirect_uri={redirect_url}&state={state}&scope={scope}')
+    
+
+def linkedin_login_callback(request):
+
+    pass
+
+    # url = 'https://www.linkedin.com/oauth/v2/accessToken'
+
+    # headers = {"Content-Type" : "application/x-www-form-urlencoded"}
+    # code = request.GET['code']
+    # print(code)
+
+    # data = {"code" : request.GET['code'],
+    #             "client_id" : '81oahhoeuge54t',
+    #             "client_secret" : '60JfRvh7JjGRJCT0',
+    #             "redirect_url" : 'https://127.0.0.1:8000/users/accounts/linkedin_login/login/callback/',
+    #             "grant_type" : 'authorization_code',
+    #             }
+
+    # data = json.dumps(data)
+
+    # resp = requests.post(url, headers=headers, data=data)
+    # print(resp.content)
+
+    # return redirect(f'fsc-home')

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from django.contrib.sessions.middleware import SessionMiddleware
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -34,7 +35,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'main_webapp.apps.MainWebappConfig',
     'users.apps.UsersConfig',
-    'opinions.apps.OpinionsConfig',
+    'posts.apps.PostsConfig',
     'projects.apps.ProjectsConfig',
 
     'django.contrib.sites',
@@ -52,6 +53,9 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.facebook',
+    # 'allauth.socialaccount.providers.linkedin',
+    'allauth.socialaccount.providers.linkedin_oauth2',
+    'allauth.socialaccount.providers.github',
 ]
 
 MIDDLEWARE = [
@@ -148,6 +152,9 @@ STATICFILES_DIRS = [
    os.path.join(BASE_DIR, "static")
 ]
 
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "/media/"
+
 LOGIN_REDIRECT_URL = 'fsc-home'
 LOGIN_URL = "fsc-users-login"
 
@@ -167,3 +174,22 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = True
 
 SOCIALACCOUNT_ADAPTER = 'users.adapters.SocialAccountAdapter'
+
+SOCIALACCOUNT_QUERY_EMAIL = True
+
+SOCIALACCOUNT_PROVIDERS = {
+    'linkedin_oauth2': {
+        'SCOPE': [
+            'r_basicprofile',
+            'r_emailaddress'
+        ],
+        'PROFILE_FIELDS': [
+            'id',
+            'first-name',
+            'last-name',
+            'email-address',
+            'picture-url',
+            'public-profile-url',
+        ],
+    }
+}

@@ -1,8 +1,49 @@
 {% extends "main_webapp/base.html" %}
+{% load static %}
 {% block content %}
 
-<div id="content-block">
-        <p class="logged_in">You are already logged in.<br><a href="{% url 'fsc-users-logout' %}">Sign in as different user</a></p>
-    </div>
-    
+<div class="user-profile">
+
+        <div class="user-info">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item nav-pills">
+                                <a class="nav-link tab-text active" id="about-tab" data-toggle="tab" href="#about" role="tab" aria-controls="about" aria-selected="true">About</a>
+                        </li>
+                        <li class="nav-item nav-pills">
+                        <a class="nav-link tab-text" id="contributions-tab" data-toggle="tab" href="#contributions" role="tab" aria-controls="contributions" aria-selected="false">Contributions</a>
+                        </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about-tab">
+                                <p><span class="pf-h">Username: </span>{{ user.username }}</p>
+                                <p><span class="pf-h">Email: </span>{{ user.email }}</p>
+                                <p><span class="pf-h">First Name: </span>{{ user.first_name }}</p>
+                                <p><span class="pf-h">Last Name: </span>{{ user.last_name }}</p>
+                                <p><span class="pf-h">Mobile Number: </span>{% if user.mobile_no %}{{ user.mobile_no }}{% else %}NA{% endif %}</p>
+                                <p><span class="pf-h">Birthday: </span>{% if user.profile.dob %}{{ user.profile.dob|date:"M d, Y" }}{% else %}NA{% endif %}</p>
+                                <p><span class="pf-h">Member since: </span>{{ user.date_joined|date:"M d, Y" }}</p>
+                                <div class="empty-div"></div>
+                                <div class="empty-div"></div>
+                                <p><span class="pf-h">Bio</span></p>
+                                <p>{% if user.profile.bio %}{{ user.profile.bio }}{% else %}NA{% endif %}</p>
+                        </div>
+                        <div class="tab-pane fade" id="contributions" role="tabpanel" aria-labelledby="contributions-tab">
+
+                        </div>
+
+                </div>
+        </div>
+
+        <div class="user-dp-name ml-auto">
+                <span>
+                        <img class="user-dp" src="{{ user.profile.dp.url }}"></img>
+                        <p class="profile-name">{{ user.first_name }} {{ user.last_name }}</p>
+                        <a href="{% url 'fsc-settings' %}">Edit Profile <img class="text-icon" src="{% static 'img/edit_icon.jpg' %}"></img></a>
+                </span>
+        </div>
+
+
+
+</div>
+
 {% endblock content %}

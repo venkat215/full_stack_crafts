@@ -1,0 +1,71 @@
+
+{% load static %}
+
+
+  <h4>Account Settings</h4>
+  <div class="empty-div"></div>
+  <form class="form" action="{% url 'fsc-settings' %}" method="post" onsubmit="return validate_acc_fields()">
+      {% csrf_token %}
+          <div class="form-group form-inline">
+          <label for="username">Username</label>
+          <input type="text" class="form-control" id="username" placeholder="Enter username" name="username" value="{{ user.username }}" data-invalid-message="Invalid Username" oninput="fv().remove_invalid(this);">
+          <div class="login-error-msg validation-alert">
+              {% if messages %}
+                  {% for message in messages %}
+                      {% if message.extra_tags == "username_error" %}
+                        {{ message }}
+                      {% endif %}
+                  {% endfor %}
+              {% endif %}
+          </div>
+          </div>
+          <p class="miniature-msg">Minimmum 6 characters<br>Allowed Characters: A-Z, a-z, 0-9, @, dot(.), hyphen(-), underscore(_)</p>
+          <div class="form-group form-inline">
+          <label for="email">Email</label>
+          <input type="text" class="form-control" id="email" placeholder="Enter email" name="email" value="{{ user.email }}" data-invalid-message="Invalid Email" oninput="fv().remove_invalid(this);">  
+          <div class="login-error-msg validation-alert">
+              {% if messages %}
+                  {% for message in messages %}
+                      {% if message.extra_tags == "email_error" %}
+                          {{ message }}
+                      {% endif %}
+                  {% endfor %}
+              {% endif %}
+          </div>
+          </div>
+          <div class="form-group form-inline">
+              <label for="fname">First Name</label>
+              <input type="text" class="form-control" id="fname" placeholder="Enter first name" name="first_name" value="{{ user.first_name }}" data-invalid-message="Invalid First Name" oninput="fv().remove_invalid(this);">
+          </div>
+          <div class="form-group form-inline">
+            <label for="lname">Last Name</label>
+            <input type="text" class="form-control" id="lname" placeholder="Enter last name" name="last_name" value="{{ user.last_name }}" data-invalid-message="Invalid Last Name" oninput="fv().remove_invalid(this);">
+          </div>
+          <div class="form-group form-inline">
+          <label for="mobile_no">Mobile Number</label>
+          <input type="text" class="form-control" id="mobile_no" placeholder="Enter mobile number" name="mobile_no" value="{% if user.mobile_no %}{{ user.mobile_no }}{% else %}{% endif %}" data-invalid-message="Invalid Mobile Number" oninput="fv().remove_invalid(this);">
+          </div>
+          <div class="form-group form-check form-half">
+          <input type="checkbox" class="form-check-input" id="send_updates" name="send_updates"{% if user.send_updates %} checked{% endif %}>
+          <script>
+            
+            // $(document).ready(function(){
+            //   if("{{ user.send_updates }}" == "True"){
+            //     document.getElementById("send_updates").checked = true;
+            //   }
+            //   else{
+            //     document.getElementById("send_updates").checked = false;
+            //   }
+            // });
+             
+          </script>
+          <label class="form-check-label" for="send_updates">Receive Updates</label>
+          </div>
+          <div class="form-group form-half">
+          <button type="submit" class="btn btn-dark mb-2 user-form" name="acc_settings">Submit</button>
+          </div>
+
+  </form>
+
+
+
