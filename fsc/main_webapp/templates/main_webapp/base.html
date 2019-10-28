@@ -49,7 +49,7 @@
                         </a>
                             <div onclick="event.stopPropagation();" class="dropdown-menu dropdown-menu-right logged-in-dd" aria-labelledby="navbarDropdown">
                                 <div class="dropdown-item user-fn-btn">{{ user.first_name }} {{ user.last_name }}<br><span class="navbar-username">{{ user.username }}</span></div>
-                                <a class="dropdown-item no-bg-btn" href="{% url 'fsc-users-current-profile' %}">Profile</a> 
+                                <a class="dropdown-item no-bg-btn" href="users/{{ user.username }}">Profile</a> 
                                 <a class="dropdown-item no-bg-btn" href="{% url 'fsc-settings' %}">Settings</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item no-bg-btn" href="{% url 'fsc-users-logout' %}">Logout</a>
@@ -74,7 +74,7 @@
 
     <div id="{{ page_name }}" class="container container-fluid">
       
-        <div class="main-area">
+        <main class="main-area">
             <!-- <div class="receive_alerts">
                 {% if messages %}
                     {% for message in messages %}
@@ -88,7 +88,7 @@
                 {% endif %}
             </div> -->
                 {% block content %}{% endblock content %}    
-        </div>
+        </main>
         
 
     </div>

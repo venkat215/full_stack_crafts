@@ -9,5 +9,5 @@ urlpatterns = [
     path('accounts/linkedin_login/login/callback/', views.linkedin_login_callback, name="fsc-linkedin-login-callback"),
     path('accounts/', include('allauth.urls'), name="fsc-users-login"),
     path('logout/', views.logout_user, name="fsc-users-logout"),
-    path('current_profile/', views.current_user, name="fsc-users-current-profile"),
+    path(r'^(?P<username>\w+)/$', views.user_profile, name="fsc-users-profile"),
 ]

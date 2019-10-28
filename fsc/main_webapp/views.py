@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.contrib.auth.decorators import login_required
 import json
 import logging
 from users.forms import UpdateProfileForm, UpdateAccountForm
 from users.models import Profile
+from datetime import datetime
 
 def home(request):
 
@@ -24,7 +25,7 @@ def site_info(request):
 
 @login_required
 def settings(request):
-    
+
     if request.method == "POST":
 
         if 'acc_settings' in request.POST:
@@ -51,6 +52,22 @@ def settings(request):
                 form.save()
             else:
                 print(form.errors.as_json())
+
+            if request.user.profile.bio:
+                bio = request.user.profile.bio
+            else:
+                bio = "NA"
+
+            if request.user.profile.dob:
+                dob = request.user.profile.dob.strftime('%Y-%m-%d')
+            else:
+                dob = ""
+
+            data = {"bio" :  bio,
+                    "dp" : request.user.profile.dp.url,
+                    "dob" : dob}
+
+            return JsonResponse(data)
                 
         if 'ch_pass' in request.POST:
             pass

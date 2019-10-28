@@ -5,7 +5,7 @@
   <h4>Profile Settings</h4>
   <div class="empty-div"></div>
   
-  <form class="form" action="{% url 'fsc-settings' %}" method="post" enctype="multipart/form-data">
+  <form id="profile_settings" class="form" action="{% url 'fsc-settings' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="form-group form-inline">
             <label for="dp">Profile Picture</label>
@@ -23,8 +23,43 @@
         <div class="form-group form-half">
           <button type="submit" class="btn btn-dark mb-2 user-form" name="profile_settings">Submit</button>
         </div>
-
   </form>
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+      var $myForm = $("#profile_settings")
+      $myForm.submit(function(e){
+      e.preventDefault();
+      var data =  new FormData($('#profile_settings').get(0));
+      data.append('profile_settings', 'profile_settings');
+
+      $.ajax({
+        url: "{% url 'fsc-settings' %}",
+        type: 'POST',
+        data: data,
+        async: true,
+        cache: false,
+        contentType: false,
+        enctype: 'multipart/form-data',
+        processData: false,
+        success:function(data){
+          document.getElementById('bio').value = data['bio']
+          document.getElementsByClassName('user-dp-preview')[0].src = data['dp']
+          document.getElementsByClassName('user-dp-nav')[0].src = data['dp']
+          var date = new Date(data['dob']);
+          var currentDate = date.toISOString().split('T')[0];
+          document.getElementById('dob').value = currentDate
+        },
+        error:function(data){
+          alert(data)
+        }
+      });
+      return false;
+
+    });
+    });
+  
+  </script>
 
 
 

@@ -12,6 +12,7 @@ import requests
 import random, string
 import json
 from django.contrib.staticfiles.templatetags.staticfiles import static
+from .models import User
 
 # HOST = "http://127.0.0.1:8000"
 
@@ -98,8 +99,6 @@ def login_user(request, on_register = False):
                     request.POST['rem_me']
                 except:
                     request.session.set_expiry(0)
-                    print(request.session)
-
                 if next_url:
                     return redirect(f'{next_url}')
 
@@ -127,10 +126,24 @@ def logout_user(request):
     return redirect('fsc-home')
 
 @login_required
-def current_user(request):
+def user_profile(request, username):
 
     if request.user.is_authenticated:
-        context = {"page_name" : request.user.first_name}
+
+        if not username == request.user.username:
+             user = User.objects.get(username=username)
+        else:
+            user = request.user
+
+        context = {"page_name" : user.first_name,
+                   "username" : user.username,
+                   "email" : user.email,
+                   "first_name" : user.first_name,
+                   "last_name" : user.last_name,
+                   "bio" : user.profile.bio,
+                   "dp" :  user.profile.dp.url,
+                   "dob" :  user.profile.dob}
+
         return render(request, 'users/user_profile.html', context=context)
 
 def linkedin_login(request):

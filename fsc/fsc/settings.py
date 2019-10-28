@@ -56,6 +56,8 @@ INSTALLED_APPS = [
     # 'allauth.socialaccount.providers.linkedin',
     'allauth.socialaccount.providers.linkedin_oauth2',
     'allauth.socialaccount.providers.github',
+
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -86,8 +88,8 @@ TEMPLATES = [
     },
 ]
 
+ASGI_APPLICATION = "fsc.routing.application"
 WSGI_APPLICATION = 'fsc.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
