@@ -12,7 +12,8 @@ import requests
 import random, string
 import json
 from django.contrib.staticfiles.templatetags.staticfiles import static
-from .models import User
+from .models import User, Profile
+from .forms import UpdateProfileForm
 
 # HOST = "http://127.0.0.1:8000"
 
@@ -46,6 +47,7 @@ def register(request):
             form.save()
             # username = form.cleaned_data.get('username')
             # messages.success(request, f'Account created for user {username}!. Logging in...')
+            
             return login_user(request, on_register = True)
 
             # if req_path != '/users/register/':
@@ -76,8 +78,6 @@ def login_user(request, on_register = False):
 
     if request.POST:
 
-        print(request.POST)
-
         username = request.POST['email']
         if not on_register:
             password = request.POST['password']
@@ -89,6 +89,9 @@ def login_user(request, on_register = False):
         user = authenticate(username=username, password=password)
         if user is not None:
             if user.is_active:
+                if on_register:
+                    Profile.objects.create(user=user)
+
                 login(request, user)
                 # if user.username:
                 #     messages.success(request, f'Successfully signed in as  {user.username}!', extra_tags="display")
@@ -129,21 +132,25 @@ def logout_user(request):
 def user_profile(request, username):
 
     if request.user.is_authenticated:
+        
+        context = {}
 
         if not username == request.user.username:
              user = User.objects.get(username=username)
         else:
             user = request.user
+            context["current_user"] = "true"
 
-        context = {"page_name" : user.first_name,
-                   "username" : user.username,
-                   "email" : user.email,
-                   "first_name" : user.first_name,
-                   "last_name" : user.last_name,
-                   "bio" : user.profile.bio,
-                   "dp" :  user.profile.dp.url,
-                   "dob" :  user.profile.dob}
-
+        context["page_name"] = user.first_name
+        context["username"] = user.username
+        context["email"] = user.email
+        context["first_name"] = user.first_name
+        context["last_name"] = user.last_name
+        context["bio"] = user.profile.bio
+        context["dp"] = user.profile.dp.url
+        context["dob"] = user.profile.dob
+        context["date_joined"] = user.date_joined
+               
         return render(request, 'users/user_profile.html', context=context)
 
 def linkedin_login(request):

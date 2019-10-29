@@ -14,7 +14,7 @@
                         </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about-tab">
+                        <!-- <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about-tab">
                                 <p><span class="pf-h">Username: </span>{{ user.username }}</p>
                                 <p><span class="pf-h">Email: </span>{{ user.email }}</p>
                                 <p><span class="pf-h">First Name: </span>{{ user.first_name }}</p>
@@ -26,6 +26,19 @@
                                 <div class="empty-div"></div>
                                 <p><span class="pf-h">Bio</span></p>
                                 <p>{% if user.profile.bio %}{{ user.profile.bio }}{% else %}NA{% endif %}</p>
+                        </div> -->
+                        <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about-tab">
+                                <p><span class="pf-h">Username: </span>{{ username }}</p>
+                                <p><span class="pf-h">Email: </span>{{ email }}</p>
+                                <p><span class="pf-h">First Name: </span>{{ first_name }}</p>
+                                <p><span class="pf-h">Last Name: </span>{{ last_name }}</p>
+                                <p><span class="pf-h">Mobile Number: </span>{% if mobile_no %}{{ mobile_no }}{% else %}NA{% endif %}</p>
+                                <p><span class="pf-h">Birthday: </span>{% if dob %}{{ dob|date:"M d, Y" }}{% else %}NA{% endif %}</p>
+                                <p><span class="pf-h">Member since: </span>{{ date_joined|date:"M d, Y" }}</p>
+                                <div class="empty-div"></div>
+                                <div class="empty-div"></div>
+                                <p><span class="pf-h">Bio</span></p>
+                                <p>{% if bio %}{{ bio }}{% else %}NA{% endif %}</p>
                         </div>
                         <div class="tab-pane fade" id="contributions" role="tabpanel" aria-labelledby="contributions-tab">
 
@@ -36,9 +49,13 @@
 
         <div class="user-dp-name ml-auto">
                 <span>
-                        <img class="user-dp" src="{{ user.profile.dp.url }}"></img>
-                        <p class="profile-name">{{ user.first_name }} {{ user.last_name }}</p>
-                        <a href="{% url 'fsc-settings' %}">Edit Profile <img class="text-icon" src="{% static 'img/edit_icon.jpg' %}"></img></a>
+                        <!-- <img class="user-dp" src="{{ user.profile.dp.url }}"></img> -->
+                        <img class="user-dp" src="{{ dp }}"></img>
+                        <!-- <p class="profile-name">{{ user.first_name }} {{ user.last_name }}</p> -->
+                        <p class="profile-name">{{ first_name }} {{ last_name }}</p>
+                        {% if current_user %}
+                                <a href="{% url 'fsc-settings' %}">Edit Profile <img class="text-icon" src="{% static 'img/edit_icon.jpg' %}"></img></a>
+                        {% endif %}
                 </span>
         </div>
 

@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'posts.apps.PostsConfig',
     'projects.apps.ProjectsConfig',
+    'messaging.apps.MessagingConfig',
 
     'django.contrib.sites',
     'django_extensions',
@@ -106,7 +107,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME':'full_stack_crafts',
         'USER' : 'postgres',
-        'PASSWORD' : 'Abc@123',
+        'PASSWORD' : '',
         'HOST' : '127.0.0.1',
         'PORT' : '5432',
     }
@@ -194,4 +195,13 @@ SOCIALACCOUNT_PROVIDERS = {
             'public-profile-url',
         ],
     }
+}
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("localhost", 6379)],
+        },
+    },
 }

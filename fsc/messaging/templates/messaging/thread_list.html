@@ -1,0 +1,67 @@
+{% extends "main_webapp/base.html" %}
+
+{% block content %}
+<h3>Thread for {% if user != object.first %}{{ object.first.username }}{% else %}{{ object.second.username }}{% endif %}</h3>
+<ul id='chat-items'>
+{% for chat in object.chatmessage_set.all %}
+
+<li>{{ chat.message }} - {{ chat.user.username }}</li>
+
+{% endfor %}
+</ul>
+
+<form id='form' method='POST'> {% csrf_token %}
+{{form.as_p }}
+<input type='submit' class='btn btn-primary'/>
+</form>
+
+<script>
+    
+    // websocket scripts
+    
+    loc = window.location
+    var wsStart = 'ws://'
+
+    if(loc.protocol == 'https:'){
+        var wsStart =  'wss://'
+    }
+
+    var endpoint = wsStart + loc.host + loc.pathname
+    var socket = new ReconnectingWebSocket(endpoint)
+    var formData = $("#form")
+    var msgInput = $("#id_message")
+    var chatHolder = $("#chat-items")
+
+    socket.onmessage = function(e){
+        console.log("message", e)
+        var chatdataMsg = JSON.parse(e.data)
+        chatHolder.append("<li>" + chatdataMsg.message + " - " + chatdataMsg.username + "</li>")
+    }
+
+    socket.onopen = function(e){
+        console.log("open", e)
+        formData.submit(function(event){
+            event.preventDefault()
+            msg = msgInput.val()
+            // chatHolder.append("<li>" + msg  + " - {{ user.username }}" + "</li>")
+            data = JSON.stringify({"message" : msg})
+            socket.send(data)
+            formData[0].reset()
+        })
+    }
+
+    socket.onerror = function(e){
+        console.log("error", e)
+
+    }
+    socket.onclose = function(e){
+        console.log("close", e)
+    }
+    
+    
+</script>
+
+{% endblock %}
+
+
+

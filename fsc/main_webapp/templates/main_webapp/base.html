@@ -6,9 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
     <!-- Bootstrap CSS -->
-    <script id="page_script" type="text/javascript" src="{% static 'js/jquery/jquery-3.4.1.min.js' %}"></script>
-    <script id="page_script" type="text/javascript" src="{% static 'js/bootstrap/bootstrap.min.js' %}"></script>
-    <script id="page_script" type="text/javascript" src="{% static 'js/script.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery/jquery-3.4.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/reconnect-websocket/reconnecting-websocket.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+    
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/bootstrap.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-social-gh-pages/bootstrap-social.css' %}">
     <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet"  type='text/css'>
@@ -49,7 +51,7 @@
                         </a>
                             <div onclick="event.stopPropagation();" class="dropdown-menu dropdown-menu-right logged-in-dd" aria-labelledby="navbarDropdown">
                                 <div class="dropdown-item user-fn-btn">{{ user.first_name }} {{ user.last_name }}<br><span class="navbar-username">{{ user.username }}</span></div>
-                                <a class="dropdown-item no-bg-btn" href="users/{{ user.username }}">Profile</a> 
+                                <a class="dropdown-item no-bg-btn" href="{% url 'fsc-users'%}{{user.username}}">Profile</a> 
                                 <a class="dropdown-item no-bg-btn" href="{% url 'fsc-settings' %}">Settings</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item no-bg-btn" href="{% url 'fsc-users-logout' %}">Logout</a>
